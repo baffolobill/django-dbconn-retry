@@ -1,5 +1,6 @@
 # -* encoding: utf-8 *-
 import logging
+import time
 
 from django.apps.config import AppConfig
 from django.db import utils as django_db_utils
@@ -53,15 +54,22 @@ def monkeypatch_django() -> None:
                     self.connect()
                 except Exception as e:
                     if isinstance(e, _operror_types):
-                        if hasattr(self, "_connection_retries") and self._connection_retries >= 1:
+                        if not hasattr(self, "_connection_retries"):
+                            self._connection_retries = 0
+                        if self._connection_retries >= self.settings_dict.get("MAX_RETRIES", 1):
                             _log.error("Reconnecting to the database didn't help %s", str(e))
                             del self._in_connecting
                             post_reconnect.send(self.__class__, dbwrapper=self)
                             raise
                         else:
+                            retry_delay = self.settings_dict.get("RETRY_DELAY_SECONDS", None)
+                            if retry_delay:
+                                time.sleep(retry_delay)
+                            
                             _log.info("Database connection failed. Refreshing...")
+                            
                             # mark the retry
-                            self._connection_retries = 1
+                            self._connection_retries += 1
                             # ensure that we retry the connection. Sometimes .closed isn't set correctly.
                             self.connection = None
                             del self._in_connecting
