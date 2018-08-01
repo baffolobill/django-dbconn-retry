@@ -15,7 +15,8 @@ an ``OperationException``.
 
 Changes
 -------
-Added `MAX_RETRIES` and `RETRY_DELAY_SECONDS`:
+Added `MAX_RETRIES` and `RETRY_DELAY_SECONDS`:  
+
 ```python
 DATABASES = {
     'default': {
