@@ -1,11 +1,11 @@
 Django Database Connection Autoreconnect
 ========================================
 
-.. image:: https://coveralls.io/repos/github/jdelic/django-dbconn-retry/badge.svg?branch=HEAD
-    :target: https://coveralls.io/github/jdelic/django-dbconn-retry?branch=HEAD
+.. image:: https://coveralls.io/repos/github/baffolobill/django-dbconn-retry/badge.svg?branch=HEAD
+    :target: https://coveralls.io/github/baffolobill/django-dbconn-retry?branch=HEAD
 
-.. image:: https://travis-ci.org/jdelic/django-dbconn-retry.svg?branch=master
-    :target: https://travis-ci.org/jdelic/django-dbconn-retry
+.. image:: https://travis-ci.org/baffolobill/django-dbconn-retry.svg?branch=master
+    :target: https://travis-ci.org/baffolobill/django-dbconn-retry
 
 This library monkeypatches ``django.db.backends.base.BaseDatabaseWrapper`` so
 that when a database operation fails because the underlying TCP connection was
