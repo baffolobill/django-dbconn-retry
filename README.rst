@@ -17,21 +17,22 @@ Changes
 -------
 Added `MAX_RETRIES` and `RETRY_DELAY_SECONDS`:  
 
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydatabase',
-        'USER': 'mydatabaseuser',
-        'PASSWORD': 'mypassword',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        ...
-        'MAX_RETRIES': 1,
-        'RETRY_DELAY_SECONDS': None,
+.. code-block:: python
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'mydatabase',
+            'USER': 'mydatabaseuser',
+            'PASSWORD': 'mypassword',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+            ...
+            'MAX_RETRIES': 1,
+            'RETRY_DELAY_SECONDS': None,
+        }
     }
-}
-```
+
 
 
 Why is this useful?
