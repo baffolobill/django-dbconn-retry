@@ -9,6 +9,7 @@ from django.dispatch import Signal
 
 from typing import Union, Tuple, Callable, List  # noqa. flake8 #118
 
+from .decorators import db_retry
 
 _log = logging.getLogger(__name__)
 default_app_config = 'django_dbconn_retry.DjangoIntegration'
