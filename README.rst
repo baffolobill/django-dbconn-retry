@@ -13,8 +13,8 @@ already closed, it first tried to reconnect, instead of immediately raising
 an ``OperationException``.
 
 
-Changes
--------
+New in the fork
+---------------
 Added `MAX_RETRIES` and `RETRY_DELAY_SECONDS`:  
 
 .. code-block:: python
@@ -33,6 +33,24 @@ Added `MAX_RETRIES` and `RETRY_DELAY_SECONDS`:
         }
     }
 
+You probably guess or know that original implementation doesn't reconnect if 
+a query already was sent to a database. So if during the query the connection 
+will be lost, you get an OperationalError exception. Probably, we can decorate 
+`BaseDatabaseWrapper.cursor()` to retry last query on failure. But result will 
+be unpredictable (what if a query isn't atomic?).
+I prefer explicitly define which part of code to decorate. You can use this one 
+https://github.com/invl/retry, for example. Also I added one: `django_dbconn_retry.db_retry(...)`
+which by default takes values `MAX_RETRIES` and `RETRY_DELAY_SECONDS` for the 
+`tries` and `delay` respectively.
+
+.. code-block:: python
+
+    from django.db import connection
+    from django_dbconn_retry import db_retry
+
+    @db_retry(tries=5, delay=1)
+    def decorated_func():
+        connection.cursor().execute("SELECT 1")
 
 
 Why is this useful?

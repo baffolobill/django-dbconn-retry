@@ -1,2 +1,4 @@
+include LICENSE
+include README.rst
+include tox.ini
 recursive-include django_dbconn_retry/tests *.py
-recursive-include test_project *.py
