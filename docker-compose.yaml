@@ -1,0 +1,11 @@
+version: '2.1'
+
+services:
+  postgres:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_USER: dbconntest
+      POSTGRES_PASSWORD: dbconntest
+      POSTGRES_DB: dbconntest
+    ports:
+      - 5432:5432
